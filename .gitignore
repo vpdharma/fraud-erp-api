@@ -8,9 +8,12 @@ outputs/*.csv
 data/processed/*.csv
 
 .azure/
+.azure-local/
 .vscode/
 .idea/
 
 *.log
 Thumbs.db
 desktop.ini
+
+backend_appservice*.zip
