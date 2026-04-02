@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+gunicorn
+pandas
+numpy
+scikit-learn
+joblib
+python-multipart
+azure-storage-blob

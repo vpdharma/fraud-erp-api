@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+outputs/*.csv
+data/processed/*.csv
+
+.azure/
+.vscode/
+.idea/
+
+*.log
+Thumbs.db
+desktop.ini

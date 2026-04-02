@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supply Chain Fraud Detection</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main class="page-shell">
+        <section class="hero-card">
+            <p class="eyebrow">Final Year B.Tech IT Major Project</p>
+            <h1>Supply Chain Fraud and Abnormal Order Detection</h1>
+            <p class="hero-text">
+                Upload an ERP-style CSV file, send it to the FastAPI backend,
+                and review suspicious orders with a fraud risk score.
+            </p>
+        </section>
+
+        <section class="panel">
+            <h2>Upload CSV File</h2>
+            <p class="section-text">
+                This page sends your CSV file to the backend API running on your local machine.
+            </p>
+
+            <form id="upload-form" class="upload-form">
+                <label for="api-url">Backend API URL</label>
+                <input
+                    id="api-url"
+                    name="apiUrl"
+                    type="text"
+                    value="http://127.0.0.1:8000"
+                    placeholder="http://127.0.0.1:8000"
+                >
+
+                <label for="csv-file">Choose CSV file</label>
+                <input
+                    id="csv-file"
+                    name="file"
+                    type="file"
+                    accept=".csv"
+                    required
+                >
+
+                <button id="submit-button" type="submit">Run Fraud Detection</button>
+            </form>
+
+            <div id="status-box" class="status-box status-idle">
+                Waiting for a CSV file.
+            </div>
+        </section>
+
+        <section id="results-section" class="panel hidden">
+            <div class="results-header">
+                <div>
+                    <h2>Prediction Results</h2>
+                    <p class="section-text">Summary of the uploaded ERP transaction file.</p>
+                </div>
+                <div class="output-box">
+                    <span class="output-label">Saved output path or Blob URL</span>
+                    <span id="output-file-path">Not available yet</span>
+                </div>
+            </div>
+
+            <div class="summary-grid">
+                <article class="summary-card">
+                    <span class="summary-label">Total Rows</span>
+                    <strong id="total-rows">0</strong>
+                </article>
+                <article class="summary-card">
+                    <span class="summary-label">Suspicious Rows</span>
+                    <strong id="suspicious-rows">0</strong>
+                </article>
+                <article class="summary-card">
+                    <span class="summary-label">Average Suspicious Risk Score</span>
+                    <strong id="avg-risk-score">0</strong>
+                </article>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer ID</th>
+                            <th>Order Amount</th>
+                            <th>Risk Score</th>
+                            <th>Suspicious Flag</th>
+                            <th>Shipping Mismatch</th>
+                            <th>High Discount</th>
+                        </tr>
+                    </thead>
+                    <tbody id="results-table-body">
+                        <tr>
+                            <td colspan="7">No results yet.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
