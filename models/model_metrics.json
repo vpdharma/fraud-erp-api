@@ -1,0 +1,170 @@
+{
+  "generated_at": "2026-06-11T10:00:56.810367+00:00",
+  "headline_metric": "pr_auc",
+  "headline_note": "PR-AUC (average precision) is the headline metric because the data is imbalanced (~10% fraud); accuracy is inflated by the majority class.",
+  "dataset": {
+    "total_rows": 1000,
+    "fraud_rows": 97,
+    "fraud_rate": 0.097,
+    "train_rows": 800,
+    "test_rows": 200,
+    "source": "synthetic ERP order data (data/raw/orders.csv)"
+  },
+  "best_model": "logistic_regression",
+  "models": {
+    "random_forest": {
+      "display_name": "Random Forest",
+      "family": "Bagging ensemble",
+      "supervised": true,
+      "note": null,
+      "roc_auc": 0.9331,
+      "pr_auc": 0.5041,
+      "default_threshold": 0.5,
+      "tuned_threshold": 0.2385,
+      "metrics_default": {
+        "accuracy": 0.905,
+        "precision": 0.5,
+        "recall": 0.0526,
+        "f1_score": 0.0952
+      },
+      "metrics_tuned": {
+        "accuracy": 0.925,
+        "precision": 0.5769,
+        "recall": 0.7895,
+        "f1_score": 0.6667
+      },
+      "confusion_matrix_default": [
+        [
+          180,
+          1
+        ],
+        [
+          18,
+          1
+        ]
+      ],
+      "confusion_matrix_tuned": [
+        [
+          170,
+          11
+        ],
+        [
+          4,
+          15
+        ]
+      ]
+    },
+    "xgboost": {
+      "display_name": "XGBoost",
+      "family": "Gradient boosting",
+      "supervised": true,
+      "note": null,
+      "roc_auc": 0.945,
+      "pr_auc": 0.5165,
+      "default_threshold": 0.5,
+      "tuned_threshold": 0.3448,
+      "metrics_default": {
+        "accuracy": 0.92,
+        "precision": 0.6,
+        "recall": 0.4737,
+        "f1_score": 0.5294
+      },
+      "metrics_tuned": {
+        "accuracy": 0.93,
+        "precision": 0.6316,
+        "recall": 0.6316,
+        "f1_score": 0.6316
+      },
+      "confusion_matrix_default": [
+        [
+          175,
+          6
+        ],
+        [
+          10,
+          9
+        ]
+      ],
+      "confusion_matrix_tuned": [
+        [
+          174,
+          7
+        ],
+        [
+          7,
+          12
+        ]
+      ]
+    },
+    "logistic_regression": {
+      "display_name": "Logistic Regression",
+      "family": "Linear model",
+      "supervised": true,
+      "note": null,
+      "roc_auc": 0.9645,
+      "pr_auc": 0.7826,
+      "default_threshold": 0.5,
+      "tuned_threshold": 0.6794,
+      "metrics_default": {
+        "accuracy": 0.92,
+        "precision": 0.5484,
+        "recall": 0.8947,
+        "f1_score": 0.68
+      },
+      "metrics_tuned": {
+        "accuracy": 0.93,
+        "precision": 0.6,
+        "recall": 0.7895,
+        "f1_score": 0.6818
+      },
+      "confusion_matrix_default": [
+        [
+          167,
+          14
+        ],
+        [
+          2,
+          17
+        ]
+      ],
+      "confusion_matrix_tuned": [
+        [
+          171,
+          10
+        ],
+        [
+          4,
+          15
+        ]
+      ]
+    },
+    "isolation_forest": {
+      "display_name": "Isolation Forest",
+      "family": "Anomaly detection",
+      "supervised": false,
+      "note": "Unsupervised anomaly detector: it never sees fraud labels, so its precision/recall are expected to be lower. Its value is catching unusual orders that labeled training data may have missed.",
+      "roc_auc": 0.8898,
+      "pr_auc": 0.5571,
+      "default_threshold": null,
+      "tuned_threshold": null,
+      "metrics_default": {
+        "accuracy": 0.92,
+        "precision": 0.5789,
+        "recall": 0.5789,
+        "f1_score": 0.5789
+      },
+      "metrics_tuned": null,
+      "confusion_matrix_default": [
+        [
+          173,
+          8
+        ],
+        [
+          8,
+          11
+        ]
+      ],
+      "confusion_matrix_tuned": null
+    }
+  }
+}

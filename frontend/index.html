@@ -42,6 +42,12 @@
                     required
                 >
 
+                <label for="model-select">Detection mode</label>
+                <select id="model-select">
+                    <option value="">Best single model (auto)</option>
+                    <option value="__compare__">Compare all models</option>
+                </select>
+
                 <button id="submit-button" type="submit">Run Fraud Detection</button>
             </form>
 
@@ -55,6 +61,7 @@
                 <div>
                     <h2>Prediction Results</h2>
                     <p class="section-text">Summary of the uploaded ERP transaction file.</p>
+                    <p id="model-used-info" class="model-info hidden"></p>
                 </div>
                 <div class="output-box">
                     <span class="output-label">Saved output path or Blob URL</span>
@@ -77,7 +84,7 @@
                 </article>
             </div>
 
-            <div class="table-wrapper">
+            <div id="single-table-wrapper" class="table-wrapper">
                 <table>
                     <thead>
                         <tr>
@@ -95,6 +102,83 @@
                             <td colspan="7">No results yet.</td>
                         </tr>
                     </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="compare-section" class="panel hidden">
+            <h2>Model Comparison</h2>
+            <p class="section-text">
+                Offline benchmark scores come from the held-out test set at training time.
+                Consensus shows how many models agree on each uploaded record.
+            </p>
+
+            <div id="benchmark-wrapper">
+                <h3>Offline benchmark (held-out test set)</h3>
+                <p id="benchmark-note" class="section-text"></p>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Model</th>
+                                <th>Family</th>
+                                <th>PR-AUC</th>
+                                <th>ROC-AUC</th>
+                                <th>Recall @ default</th>
+                                <th>Recall (tuned)</th>
+                                <th>Precision (tuned)</th>
+                                <th>F1 (tuned)</th>
+                                <th>Tuned threshold</th>
+                            </tr>
+                        </thead>
+                        <tbody id="benchmark-table-body"></tbody>
+                    </table>
+                </div>
+                <div id="chart-container" class="chart-container"></div>
+            </div>
+
+            <h3>Results on your file</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Decision threshold</th>
+                            <th>Flagged rows</th>
+                            <th>Avg flagged risk score</th>
+                        </tr>
+                    </thead>
+                    <tbody id="per-model-summary-body"></tbody>
+                </table>
+            </div>
+            <p id="consensus-line" class="consensus-line"></p>
+
+            <div id="live-metrics-wrapper" class="hidden">
+                <h3>Live metrics on your file</h3>
+                <p id="live-metrics-note" class="section-text"></p>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Model</th>
+                                <th>Accuracy</th>
+                                <th>Precision</th>
+                                <th>Recall</th>
+                                <th>F1</th>
+                                <th>ROC-AUC</th>
+                                <th>PR-AUC</th>
+                            </tr>
+                        </thead>
+                        <tbody id="live-metrics-body"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <h3>Top suspicious records (consensus view)</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead id="compare-table-head"></thead>
+                    <tbody id="compare-table-body"></tbody>
                 </table>
             </div>
         </section>

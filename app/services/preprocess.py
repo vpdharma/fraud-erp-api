@@ -20,7 +20,6 @@ REQUIRED_RAW_COLUMNS = [
     "urgent_shipping_flag",
     "manual_override_flag",
     "order_hour",
-    "fraud_label",
 ]
 
 NUMERIC_COLUMNS = [
@@ -35,6 +34,11 @@ NUMERIC_COLUMNS = [
     "urgent_shipping_flag",
     "manual_override_flag",
     "order_hour",
+]
+
+# The ground-truth label is needed for training but optional at prediction
+# time, so unlabeled production data can still be scored.
+OPTIONAL_NUMERIC_COLUMNS = [
     "fraud_label",
 ]
 
@@ -94,6 +98,12 @@ def convert_numeric_columns(dataframe: pd.DataFrame) -> pd.DataFrame:
             cleaned_dataframe[column], errors="coerce"
         )
 
+    for column in OPTIONAL_NUMERIC_COLUMNS:
+        if column in cleaned_dataframe.columns:
+            cleaned_dataframe[column] = pd.to_numeric(
+                cleaned_dataframe[column], errors="coerce"
+            )
+
     return cleaned_dataframe
 
 
@@ -110,6 +120,10 @@ def fill_missing_values(dataframe: pd.DataFrame) -> pd.DataFrame:
         if pd.isna(median_value):
             median_value = 0
         cleaned_dataframe[column] = cleaned_dataframe[column].fillna(median_value)
+
+    for column in OPTIONAL_NUMERIC_COLUMNS:
+        if column in cleaned_dataframe.columns:
+            cleaned_dataframe[column] = cleaned_dataframe[column].fillna(0)
 
     for column in TEXT_COLUMNS:
         cleaned_dataframe[column] = cleaned_dataframe[column].fillna("unknown")
