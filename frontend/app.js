@@ -28,6 +28,14 @@ const compareTableBody = document.getElementById("compare-table-body");
 const COMPARE_OPTION_VALUE = "__compare__";
 const CHART_COLORS = ["#0e6b56", "#4a6fa5", "#b98a2e", "#b1492f"];
 
+// When the page is served from Azure, default to the deployed backend
+// instead of localhost. The field stays editable either way.
+const DEPLOYED_API_URL =
+    "https://fraud-erp-api-vpd-g2guawe2ejd9auh7.centralindia-01.azurewebsites.net";
+if (window.location.hostname.endsWith("azurewebsites.net")) {
+    apiUrlInput.value = DEPLOYED_API_URL;
+}
+
 let cachedBenchmark = null;
 
 
